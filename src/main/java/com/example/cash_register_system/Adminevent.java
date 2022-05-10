@@ -853,9 +853,6 @@ public class Adminevent {
                                             if (!slist.isEmpty()) {
                                                 if (discount >= 0.0 && discount <= 1.0) {
                                                     fristString = gid;
-                                                    List<Allentity> list = adminDao.getGoodsgid1(connection);
-                                                    assert list != null;
-                                                    fristString = gid;
                                                     secondString = gname;
                                                     thirdString = gcategory;
                                                     fourthString = gorgin;
@@ -866,6 +863,13 @@ public class Adminevent {
                                                     ninthString = numberFormat.format(gprice);
                                                     tenthString = numberFormat.format(price);
                                                     eleventhString = numberFormat.format(discount);
+                                                    List<Allentity> list = adminDao.getGoodsgid1(connection);
+                                                    List<Allentity> list1 = adminDao.isGsupplier(connection);
+                                                    assert list != null;
+                                                    assert list1 != null;
+                                                    if (list1.isEmpty()) {
+                                                        adminDao.insertGsupplier(connection);
+                                                    }
                                                     if (list.isEmpty()) {
                                                         adminDao.insertGoods(connection);
                                                     } else {
@@ -1048,7 +1052,7 @@ public class Adminevent {
     //    添加界面产地选择
     @FXML
     protected void cityempty() {
-        function.setcityempty(scitycb, sareacb);
+        function.setcityempty(citycb, areacb);
     }
 
     @FXML
@@ -1108,7 +1112,7 @@ public class Adminevent {
         if (grecb.getItems().isEmpty()) {
             assert list != null;
             for (Allentity allentity : list) {
-                grecb.getItems().add(allentity.getReficitions());
+                grecb.getItems().add(allentity.getSpecifications());
             }
         }
     }
@@ -1180,6 +1184,10 @@ public class Adminevent {
                         tenthString = gpprice;
                         double d = Double.parseDouble(gvprice.substring(0, gvprice.length() - 1)) * 0.01;
                         eleventhString = String.valueOf(d);
+                        List<Allentity> list = adminDao.isGsupplier(connection);
+                        if (list.isEmpty()) {
+                            adminDao.insertGsupplier(connection);
+                        }
                         adminDao.insertGoods(connection);
                         goodstablevalue();
                         goodsrefresh();
@@ -1358,8 +1366,9 @@ public class Adminevent {
                         }
                     } else if ("产地".equals(updatecb.getValue())) {
                         if (uprovincecb.getValue() != null) {
-                            fristString = function.getaddress(uprovincecb, ucitycb, uareacb);
-                            secondString = updategidtf.getText();
+                            thirdString = function.getaddress(uprovincecb, ucitycb, uareacb);
+                            fifthString = updategidtf.getText();
+                            secondString = adminDao.getGoodsgid1(connection).get(0).getGsupplier();
                             adminDao.updateGoodsgorigin(connection);
                             function.setAlert1("修改成功");
                             goodstablevalue();
@@ -1368,8 +1377,13 @@ public class Adminevent {
                         }
                     } else if ("供货商".equals(updatecb.getValue())) {
                         if (!updatetf.getText().isEmpty()) {
-                            fristString = updatetf.getText();
+                            fifthString = updatetf.getText();
                             secondString = updategidtf.getText();
+                            fourthString = adminDao.getGorigin(connection).get(0).getGorigin();
+                            List<Allentity> list = adminDao.isGsupplier(connection);
+                            if (list.isEmpty()) {
+                                adminDao.insertGsupplier(connection);
+                            }
                             adminDao.updateGoodsgsupplier(connection);
                             function.setAlert1("修改成功");
                             goodstablevalue();
@@ -1558,7 +1572,7 @@ public class Adminevent {
             List<Allentity> list = adminDao.getEcategoryemployee(connection);
             assert list != null;
             for (Allentity allentity : list) {
-                erolecb.getItems().addAll(allentity.getEmployee());
+                erolecb.getItems().addAll(allentity.getErole());
             }
         }
     }
@@ -1913,7 +1927,6 @@ public class Adminevent {
     @FXML
     protected void employeetablevalue() {
         employeechoise = 1;
-        fristString = getString();
         employeetable.setItems(function.gettablevalue(adminDao.getEmployeetable(connection)));
     }
 
@@ -1951,9 +1964,9 @@ public class Adminevent {
 //    数据初始化
     @FXML
     protected void admincategory() {
-        cgoodscolumn.setCellValueFactory(new PropertyValueFactory<>("goods"));
-        cemployeecolumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
-        recolumn.setCellValueFactory(new PropertyValueFactory<>("reficitions"));
+        cgoodscolumn.setCellValueFactory(new PropertyValueFactory<>("gcategory"));
+        cemployeecolumn.setCellValueFactory(new PropertyValueFactory<>("erole"));
+        recolumn.setCellValueFactory(new PropertyValueFactory<>("specifications"));
         gctablevalue(cgoodstable);
         ectablevalue(cemployeetable);
         reficition(reficitiontable);
@@ -2035,9 +2048,9 @@ public class Adminevent {
                 List<Allentity> list = adminDao.getGcategorygoods(connection);
                 assert list != null;
                 for (Allentity allentity : list) {
-                    if (allentity.getGoods() != null) {
-                        if (!"<空>".equals(allentity.getGoods())) {
-                            cobjectcb.getItems().add(allentity.getGoods());
+                    if (allentity.getGcategory() != null) {
+                        if (!"<空>".equals(allentity.getGcategory())) {
+                            cobjectcb.getItems().add(allentity.getGcategory());
                         }
                     }
                 }
@@ -2045,9 +2058,9 @@ public class Adminevent {
                 List<Allentity> list = adminDao.getEcategoryemployee(connection);
                 assert list != null;
                 for (Allentity allentity : list) {
-                    if (allentity.getEmployee() != null) {
-                        if (!"<空>".equals(allentity.getEmployee())) {
-                            cobjectcb.getItems().add(allentity.getEmployee());
+                    if (allentity.getErole() != null) {
+                        if (!"<空>".equals(allentity.getErole())) {
+                            cobjectcb.getItems().add(allentity.getErole());
                         }
                     }
                 }
@@ -2055,9 +2068,9 @@ public class Adminevent {
                 List<Allentity> list = adminDao.getReficitionsreficition(connection);
                 assert list != null;
                 for (Allentity allentity : list) {
-                    if (allentity.getReficitions() != null) {
-                        if (!"<空>".equals(allentity.getReficitions())) {
-                            cobjectcb.getItems().add(allentity.getReficitions());
+                    if (allentity.getSpecifications() != null) {
+                        if (!"<空>".equals(allentity.getSpecifications())) {
+                            cobjectcb.getItems().add(allentity.getSpecifications());
                         }
                     }
                 }

@@ -240,4 +240,10 @@ public interface AdminDao {
     List<Allentity> setCharttable2(Connection connection);
 
     List<Allentity> setCharttable3(Connection connection);
+
+    List<Allentity> isGsupplier(Connection connection);
+
+    void insertGsupplier(Connection connection);
+
+    List<Allentity> getGorigin(Connection connection);
 }

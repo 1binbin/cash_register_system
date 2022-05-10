@@ -396,6 +396,10 @@ public class Cashierevent {
                             fristString = tid;
                             secondString = ccgidtf.getText();
                             thirdString = cctnumtf.getText();
+                            List<Allentity> list2 = cashierDao.getTicket(connection);
+                            if (list2.isEmpty()) {
+                                cashierDao.insertTicketc(connection);
+                            }
                             cashierDao.insertTicket(connection);
                         } else {
                             fristString = cctnumtf.getText();
@@ -990,10 +994,15 @@ public class Cashierevent {
                     if (l >= 0) {
                         fristString = vintegraltf.getText();
                         secondString = vidtf.getText();
-                        cashierDao.updateVipcustomerchange(connection);
-                        vtablevalue();
-                        vrefreshbutton();
-                        function.setAlert1("兑换成功！");
+                        List<Allentity> list = cashierDao.getIntegral(connection);
+                        if (l <= list.get(0).getVintegral()) {
+                            cashierDao.updateVipcustomerchange(connection);
+                            vtablevalue();
+                            vrefreshbutton();
+                            function.setAlert1("兑换成功！");
+                        } else {
+                            function.setAlert("兑换积分超过已有积分");
+                        }
                     } else {
                         function.setAlert("积分输入不是正数！");
                     }
@@ -1471,13 +1480,13 @@ public class Cashierevent {
     protected void setcpokbutton() {
         fristString = LogininEvent.eid;
         secondString = cpselecttf.getText();
-        thirdString = getDate(cpbegin, cpend)[0];
-        fourthString = getDate(cpbegin, cpend)[0];
         if ("小票编号".equals(cprangecb.getValue())) {
             getcountprice(cashierDao.getPsqlessqltid(connection), cashierDao.getPsalesvsqltid(connection), cashierDao.getPsalespsqltid(connection), cashierDao.getPsalesvcounttid(connection), cashierDao.getPsalespcounttid(connection));
         } else if ("顾客编号".equals(cprangecb.getValue())) {
             getcountprice(cashierDao.getPsqlessqlvid(connection), cashierDao.getPsalesvsqlvid(connection), cashierDao.getPsalespsqlvid(connection), cashierDao.getPsalesvcountvid(connection), cashierDao.getPsalespcountvid(connection));
         } else if ("购买时间".equals(cprangecb.getValue())) {
+            thirdString = getDate(cpbegin, cpend)[0];
+            fourthString = getDate(cpbegin, cpend)[0];
             getcountprice(cashierDao.getPsqlessqldate(connection), cashierDao.getPsalesvsqldate(connection), cashierDao.getPsalespsqldate(connection), cashierDao.getPsalesvcountdate(connection), cashierDao.getPsalespcountdate(connection));
         } else {
             function.setAlert("搜索范围未选择！");

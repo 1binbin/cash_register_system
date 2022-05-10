@@ -61,7 +61,6 @@ public class Allentity {
     private String specifications;
     private String reficitions;
     private double esalary;
-
     private double sv;
     private double sp;
     private double ss;

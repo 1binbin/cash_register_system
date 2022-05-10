@@ -118,9 +118,9 @@ public class Function {
         assert list != null;
         if (!list.isEmpty()) {
             if (gcategorycb.getItems().isEmpty()) {
-                gcategorycb.setValue(list.get(0).getGoods());
+                gcategorycb.setValue(list.get(0).getGcategory());
                 for (Allentity allentity : list) {
-                    gcategorycb.getItems().add(allentity.getGoods());
+                    gcategorycb.getItems().add(allentity.getGcategory());
                 }
             }
         }

@@ -26,37 +26,37 @@ public class LoginDaoImpl extends BaseDao<Allentity> implements LoginDao {
 
     @Override
     public List<Allentity> getEcategory(Connection connection) {
-        String sql = "select * from ecategory where employee = ?";
+        String sql = "select * from employeec where erole = ?";
         return getBeanList(connection,sql,LogininEvent.fristString);
     }
 
     @Override
     public List<Allentity> getGcategory(Connection connection) {
-        String sql = "select * from gcategory where goods = ?";
+        String sql = "select * from goodsc where gcategory = ?";
         return getBeanList(connection,sql,LogininEvent.fristString);
     }
 
     @Override
     public List<Allentity> getReficition(Connection connection) {
-        String sql = "select * from reficition where reficitions = ?";
+        String sql = "select * from reficition where specifications = ?";
         return getBeanList(connection,sql,LogininEvent.fristString);
     }
 
     @Override
     public void insertGcategory(Connection connection) {
-        String sql = "insert into gcategory(goods) values (?)";
+        String sql = "insert into goodsc(gcategory) values (?)";
         update(connection,sql,LogininEvent.fristString);
     }
 
     @Override
     public void insertEcategory(Connection connection) {
-        String sql = "insert into ecategory(employee) values (?)";
+        String sql = "insert into employeec(erole) values (?)";
         update(connection,sql,LogininEvent.fristString);
     }
 
     @Override
     public void insertReficition(Connection connection) {
-        String sql = "insert into reficition(reficitions) values (?)";
+        String sql = "insert into reficition(specifications) values (?)";
         update(connection,sql,LogininEvent.fristString);
     }
 }

@@ -50,88 +50,100 @@ public class AdminDaoImpl extends BaseDao<Allentity> implements AdminDao{
 * 获取所有商品信息*/
     @Override
     public List<Allentity> getGoods(Connection connection) {
-        String sql = "select * from goods";
+        String sql = "select * from goods,origin where goods.gsupplier = origin.gsupplier";
         return getBeanList(connection,sql);
     }
     /*商品搜索界面*/
 
     @Override
     public List<Allentity> getGoodsgid(Connection connection) {
-        String sql = "select * from goods where gid like concat('%',?,'%')";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gid like concat('%',?,'%')";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getGoodsgname(Connection connection) {
-        String sql = "select * from goods where gname like concat('%',?,'%')";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gname like concat('%',?,'%')";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getGoodsgcategory(Connection connection) {
-        String sql = "select * from goods where gcategory like concat('%',?,'%')";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gcategory like concat('%',?,'%')";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getGoodsgorigin(Connection connection) {
-        String sql = "select * from goods where gorigin like concat('%',?,'%')";
+        String sql = "select * from goods , origin where  goods.gsupplier = origin.gsupplier and gorigin like concat('%',?,'%')";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getGoodsgsupplier(Connection connection) {
-        String sql = "select * from goods where gsupplier like concat('%',?,'%')";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and goods.gsupplier like concat('%',?,'%')";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getGoodsgindate(Connection connection) {
-        String sql = "select * from goods where gindate between ? and ?";
-        return getBeanList(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gindate between ? and ?";
+        return getBeanList(connection, sql, Adminevent.fristString, Adminevent.secondString);
     }
 
     /*批量上传界面*/
 
     @Override
+    public List<Allentity> isGsupplier(Connection connection) {
+        String sql = "select * from origin where gsupplier = ?";
+        return getBeanList(connection, sql, Adminevent.fifthString);
+    }
+
+    @Override
+    public void insertGsupplier(Connection connection) {
+        String sql = "insert into origin(gorigin,gsupplier) value (?,?)";
+        update(connection, sql, Adminevent.fourthString, Adminevent.fifthString);
+    }
+
+    @Override
     public void insertGoods(Connection connection) {
-        String sql = "insert into goods(gid,gname,gcategory,gorigin,gsupplier,gindate,gnum,specifications,gpurchaseprice,gpprice,gdiscount) values(?,?,?,?,?,?,?,?,?,?,?)";
-        update(connection,sql,Adminevent.fristString,Adminevent.secondString,Adminevent.thirdString,Adminevent.fourthString,Adminevent.fifthString,Adminevent.sixthString,Adminevent.seventhString,Adminevent.eighthString,Adminevent.ninthString,Adminevent.tenthString,Adminevent.eleventhString);
+        String sql = "insert into goods(gid,gname,gcategory,gsupplier,gindate,gnum,specifications,gpurchaseprice,gpprice,gdiscount) values(?,?,?,?,?,?,?,?,?,?)";
+        update(connection, sql, Adminevent.fristString, Adminevent.secondString, Adminevent.thirdString, Adminevent.fifthString, Adminevent.sixthString, Adminevent.seventhString, Adminevent.eighthString, Adminevent.ninthString, Adminevent.tenthString, Adminevent.eleventhString);
     }
 
     @Override
     public List<Allentity> getGcategory(Connection connection) {
-        String sql = "select * from gcategory where goods = ?";
-        return getBeanList(connection,sql,Adminevent.fristString);
+        String sql = "select * from goodsc where gcategory = ?";
+        return getBeanList(connection, sql, Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getReficition(Connection connection) {
-        String sql = "select * from reficition where reficitions = ?";
+        String sql = "select * from reficition where specifications = ?";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getGcategory1(Connection connection) {
-        String sql = "select * from gcategory";
+        String sql = "select * from goodsc";
         return getBeanList(connection,sql);
     }
 
     @Override
     public List<Allentity> getGoodsgid1(Connection connection) {
-        String sql = "select * from goods where gid = ?";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gid = ?";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public void updateGoods(Connection connection) {
-        String sql ="update goods set gname = ? , gcategory = ? , gorigin = ? , gsupplier = ? , gindate = ? , gnum = gnum + ? , specifications = ? , gpurchaseprice = ? , gpprice = ? , gdiscount = ? where gid = ?";
-        update(connection,sql,Adminevent.secondString,Adminevent.thirdString,Adminevent.fourthString,Adminevent.fifthString,Adminevent.sixthString,Adminevent.seventhString,Adminevent.eighthString,Adminevent.ninthString,Adminevent.tenthString,Adminevent.eleventhString,Adminevent.fristString);
+        String sql = "update goods set gname = ? , gcategory = ? ,  gsupplier = ? , gindate = ? , gnum = gnum + ? , specifications = ? , gpurchaseprice = ? , gpprice = ? , gdiscount = ? where gid = ?";
+        update(connection, sql, Adminevent.secondString, Adminevent.thirdString, Adminevent.fifthString, Adminevent.sixthString, Adminevent.seventhString, Adminevent.eighthString, Adminevent.ninthString, Adminevent.tenthString, Adminevent.eleventhString, Adminevent.fristString);
     }
 
     @Override
     public List<Allentity> getEmployeeemployee(Connection connection) {
-        String sql = "select * from ecategory where employee = ?";
+        String sql = "select * from employeec where erole = ?";
         return getBeanList(connection ,sql,Adminevent.fristString);
     }
 
@@ -188,20 +200,25 @@ public class AdminDaoImpl extends BaseDao<Allentity> implements AdminDao{
 
     @Override
     public void updateGoodsgorigin(Connection connection) {
-        String sql = "update goods set gorigin = ? where gid = ?";
-        update(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        String sql = "update origin set gorigin = ? where gsupplier =?";
+        update(connection, sql, Adminevent.thirdString, Adminevent.secondString);
     }
 
     @Override
     public void updateGoodsgsupplier(Connection connection) {
         String sql = "update goods set gsupplier = ? where gid = ?";
-        update(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        update(connection, sql, Adminevent.fifthString, Adminevent.secondString);
+    }
+
+    public List<Allentity> getGorigin(Connection connection) {
+        String sql = "select gorigin from goods , origin where goods.gsupplier =  origin.gsupplier and gid = ?";
+        return getBeanList(connection, sql, Adminevent.secondString);
     }
 
     @Override
     public void updateGoodsggindate(Connection connection) {
         String sql = "update goods set gindate = ? where gid = ?";
-        update(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        update(connection, sql, Adminevent.fristString, Adminevent.secondString);
     }
 
     @Override
@@ -231,7 +248,7 @@ public class AdminDaoImpl extends BaseDao<Allentity> implements AdminDao{
 
     @Override
     public List<Allentity> getEcategory(Connection connection) {
-        String sql = "select employee from ecategory where employee = ?";
+        String sql = "select erole from employeec where erole = ?";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
 
@@ -257,43 +274,43 @@ public class AdminDaoImpl extends BaseDao<Allentity> implements AdminDao{
 
     @Override
     public List<Allentity> selectEmployeeeid(Connection connection) {
-        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round((date_format(?,'%y')-date_format(ebirthday,'%y')))eage, ebirthday from employee where eid like concat('%',?,'%')";
-        return getBeanList(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round(timestampdiff(year,ebirthday,now()))eage, ebirthday from employee where eid like concat('%',?,'%')";
+        return getBeanList(connection, sql, Adminevent.secondString);
     }
 
     @Override
     public List<Allentity> selectEmployeeename(Connection connection) {
-        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round((date_format(?,'%y')-date_format(ebirthday,'%y')))eage, ebirthday from employee where ename like concat('%',?,'%')";
-        return getBeanList(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round(timestampdiff(year,ebirthday,now()))eage, ebirthday from employee where ename like concat('%',?,'%')";
+        return getBeanList(connection, sql, Adminevent.secondString);
     }
 
     @Override
     public List<Allentity> selectEmployeeeaddress(Connection connection) {
-        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round((date_format(?,'%y')-date_format(ebirthday,'%y')))eage, ebirthday from employee where eaddress like concat('%',?,'%') and edaddress like concat('%',?,'%')";
-        return getBeanList(connection,sql,Adminevent.fristString,Adminevent.secondString,Adminevent.thirdString);
+        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round(timestampdiff(year,ebirthday,now()))eage, ebirthday from employee where eaddress like concat('%',?,'%') and edaddress like concat('%',?,'%')";
+        return getBeanList(connection, sql, Adminevent.secondString, Adminevent.thirdString);
     }
 
     @Override
     public List<Allentity> selectEmployeeephone(Connection connection) {
-        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round((date_format(?,'%y')-date_format(ebirthday,'%y')))eage, ebirthday from employee where ephone like concat('%',?,'%') ";
-        return getBeanList(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round(timestampdiff(year,ebirthday,now()))eage, ebirthday from employee where ephone like concat('%',?,'%') ";
+        return getBeanList(connection, sql, Adminevent.secondString);
     }
 
     @Override
     public List<Allentity> selectEmployeeerole(Connection connection) {
-        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round((date_format(?,'%y')-date_format(ebirthday,'%y')))eage, ebirthday from employee where erole = ?";
-        return getBeanList(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round(timestampdiff(year,ebirthday,now()))eage, ebirthday from employee where erole = ?";
+        return getBeanList(connection, sql, Adminevent.secondString);
     }
     @Override
     public List<Allentity> selectEmployeeesex(Connection connection) {
-        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round((date_format(?,'%y')-date_format(ebirthday,'%y')))eage, ebirthday from employee where esex = ?";
-        return getBeanList(connection,sql,Adminevent.fristString,Adminevent.secondString);
+        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round(timestampdiff(year,ebirthday,now()))eage, ebirthday from employee where esex = ?";
+        return getBeanList(connection, sql, Adminevent.secondString);
     }
 
     @Override
     public List<Allentity> getEmployeetable(Connection connection) {
-        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round((date_format(?,'%y')-date_format(ebirthday,'%y')))eage, ebirthday ,esalary from employee";
-        return getBeanList(connection,sql,Adminevent.fristString);
+        String sql = "select eid,ename,erole,eaddress,edaddress,ephone,esex,round(timestampdiff(year,ebirthday,now()))eage, ebirthday ,esalary from employee";
+        return getBeanList(connection, sql);
     }
 
     @Override
@@ -316,72 +333,72 @@ public class AdminDaoImpl extends BaseDao<Allentity> implements AdminDao{
 
     @Override
     public List<Allentity> getGcategorygoods(Connection connection) {
-        String sql = "select goods from gcategory";
+        String sql = "select gcategory from goodsc";
         return getBeanList(connection,sql);
     }
     @Override
     public List<Allentity> getEcategoryemployee(Connection connection) {
-        String sql = "select * from ecategory";
+        String sql = "select * from employeec";
         return getBeanList(connection,sql);
     }
     /*类别管理界面*/
 
     @Override
     public void insertGcategory(Connection connection) {
-        String sql = "insert into gcategory(goods) values(?)";
+        String sql = "insert into goodsc(gcategory) values(?)";
         update(connection,sql,Adminevent.fristString);
     }
     @Override
     public void deleteGcategory(Connection connection) {
-        String sql = "delete from gcategory where goods = ?";
+        String sql = "delete from goodsc where gcategory = ?";
         update(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public void updateGcategory(Connection connection) {
-        String sql = "update gcategory set goods = ? where goods = ?";
+        String sql = "update goodsc set gcategory = ? where gcategory = ?";
         update(connection,sql,Adminevent.fristString,Adminevent.secondString);
     }
 
     @Override
     public void insertEcategory(Connection connection) {
-        String sql = "insert into ecategory(employee) values(?)";
+        String sql = "insert into employeec(erole) values(?)";
         update(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public void deleteEcategory(Connection connection) {
-        String sql = "delete from ecategory where employee = ?";
+        String sql = "delete from employeec where erole = ?";
         update(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public void updateEcategory(Connection connection) {
-        String sql = "update ecategory set employee = ? where employee = ?";
+        String sql = "update employeec set erole = ? where erole = ?";
         update(connection,sql,Adminevent.fristString,Adminevent.secondString);
     }
 
     @Override
     public void insertReficitions(Connection connection) {
-        String sql = "insert into reficition(reficitions) values(?)";
+        String sql = "insert into reficition(specifications) values(?)";
         update(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public void deleteReficitions(Connection connection) {
-        String sql = "delete from reficition where reficitions = ?";
+        String sql = "delete from reficition where specifications = ?";
         update(connection,sql,Adminevent.fristString);
     }
 
     @Override
     public void updateReficitions(Connection connection) {
-        String sql = "update reficition set reficitions = ? where reficitions = ?";
+        String sql = "update reficition set specifications = ? where specifications = ?";
         update(connection,sql,Adminevent.fristString,Adminevent.secondString);
     }
 
     @Override
     public List<Allentity> getReficitions(Connection connection) {
-        String sql = "select reficitions from reficition where reficitions = ?";
+        String sql = "select specifications from reficition where specifications = ?";
         return getBeanList(connection,sql,Adminevent.fristString);
     }
     /*功能事件*/
@@ -515,7 +532,7 @@ public class AdminDaoImpl extends BaseDao<Allentity> implements AdminDao{
 
     @Override
     public List<Allentity> getPsalessdate(Connection connection) {
-        String sql ="select * from vsales where  date_format(sdate,'%Y-%m-%d')>=date_format(?,'%Y-%m-%d') and date_format(sdate,'%Y-%m-%d')<=date_format(?,'%Y-%m-%d') union all select tid, pid vid, pdate sdate, pcash scash, eid, 0 sintegral from psales where  date_format(pdate,'%Y-%m-%d')>=date_format(?,'%Y-%m-%d') and date_format(pdate,'%Y-%m-%d')<=date_format(?,'%Y-%m-%d')";
+        String sql = "select * from vsales where date_format(sdate,'%Y-%m-%d')>=date_format(?,'%Y-%m-%d') and date_format(sdate,'%Y-%m-%d')<=date_format(?,'%Y-%m-%d') union all select tid, pid vid, pdate sdate, pcash scash, eid, 0 sintegral from psales where  date_format(pdate,'%Y-%m-%d')>=date_format(?,'%Y-%m-%d') and date_format(pdate,'%Y-%m-%d')<=date_format(?,'%Y-%m-%d')";
         return getBeanList(connection,sql,Adminevent.secondString,Adminevent.thirdString,Adminevent.secondString,Adminevent.thirdString);
     }
 

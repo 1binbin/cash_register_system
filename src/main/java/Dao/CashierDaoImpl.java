@@ -14,7 +14,7 @@ import java.util.List;
 public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
     @Override
     public void deleteTickettid(Connection connection) {
-        String sql = "delete from ticket where tid = ?";
+        String sql = "delete from ticketc where tid = ?";
         update(connection, sql, Cashierevent.fristString);
     }
 
@@ -33,7 +33,7 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
 
     @Override
     public List<Allentity> getGoodsgid(Connection connection) {
-        String sql = "select * from goods where gid = ?";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gid = ?";
         return getBeanList(connection, sql, Cashierevent.fristString);
     }
 
@@ -48,6 +48,13 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
         String sql = "insert into ticket(tid,gid,tnum) values(?,?,?)";
         update(connection, sql, Cashierevent.fristString, Cashierevent.secondString, Cashierevent.thirdString);
     }
+
+    @Override
+    public void insertTicketc(Connection connection) {
+        String sql = "insert into ticketc(tid) values(?)";
+        update(connection, sql, Cashierevent.fristString);
+    }
+
 
     @Override
     public void updateTicksttnum(Connection connection) {
@@ -81,7 +88,7 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
 
     @Override
     public List<Allentity> getTickettid(Connection connection) {
-        String sql = "select * from ticket where tid = ?";
+        String sql = "select * from ticketc where tid = ?";
         return getBeanList(connection, sql, Cashierevent.fristString);
     }
 
@@ -129,37 +136,37 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
 
     @Override
     public List<Allentity> getGoods(Connection connection) {
-        String sql = "select * from goods";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier";
         return getBeanList(connection, sql);
     }
 
     @Override
     public List<Allentity> getGoodsgid1(Connection connection) {
-        String sql = "select * from goods where gid like concat('%',?,'%')";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gid like concat('%',?,'%')";
         return getBeanList(connection, sql, Cashierevent.fristString);
     }
 
     @Override
     public List<Allentity> getGoodsgname(Connection connection) {
-        String sql = "select * from goods where gname like concat('%',?,'%')";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gname like concat('%',?,'%')";
         return getBeanList(connection, sql, Cashierevent.fristString);
     }
 
     @Override
     public List<Allentity> getGoodsgcategory(Connection connection) {
-        String sql = "select * from goods where gcategory like concat('%',?,'%') ";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gcategory like concat('%',?,'%') ";
         return getBeanList(connection, sql, Cashierevent.secondString);
     }
 
     @Override
     public List<Allentity> getGoodsgorigin(Connection connection) {
-        String sql = "select * from goods where gorigin like concat('%',?,'%') ";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and goods.gorigin like concat('%',?,'%') ";
         return getBeanList(connection, sql, Cashierevent.thirdString);
     }
 
     @Override
     public List<Allentity> getGoodsgsupplier(Connection connection) {
-        String sql = "select * from goods where gindate between concat('%',?,'%') and concat('%',?,'%')";
+        String sql = "select * from goods ,origin where goods.gsupplier = origin.gsupplier and gindate between concat('%',?,'%') and concat('%',?,'%')";
         return getBeanList(connection, sql, Cashierevent.fourthString, Cashierevent.fifthString);
     }
 
@@ -402,7 +409,7 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
 
     @Override
     public List<Allentity> setTbalerefresh(Connection connection) {
-        String sql  = "select * from ticket where tid = '000000000000'";
+        String sql = "select * from ticketc where tid = '000000000000'";
         return getBeanList(connection,sql);
     }
 
@@ -469,13 +476,19 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
 
     @Override
     public void updateEmployeeepassword(Connection connection) {
-        String sql  ="update employee set epassword = ? where eid = ?";
-        update(connection,sql,Cashierevent.fristString,Cashierevent.secondString);
+        String sql = "update employee set epassword = ? where eid = ?";
+        update(connection, sql, Cashierevent.fristString, Cashierevent.secondString);
     }
 
     @Override
     public List<Allentity> getTicket(Connection connection) {
-        String sql  ="select tid from ticket where tid = ?";
-        return getBeanList(connection,sql,Cashierevent.fristString);
+        String sql = "select tid from ticketc where tid = ?";
+        return getBeanList(connection, sql, Cashierevent.fristString);
+    }
+
+    @Override
+    public List<Allentity> getIntegral(Connection connection) {
+        String sql = "select vintegral from vipcustomer where vid = ?";
+        return getBeanList(connection, sql, Cashierevent.secondString);
     }
 }

@@ -32,13 +32,13 @@ public class FunctionDaoImpl extends BaseDao<Allentity> implements FunctionDao {
 
     @Override
     public List<Allentity> getGoods(Connection connection) {
-        String sql = "select goods from gcategory";
+        String sql = "select gcategory from goodsc";
         return getBeanList(connection, sql);
     }
 
     @Override
     public List<Allentity> getGoodslist(Connection connection) {
-        String sql = "select * from goods";
+        String sql = "select * from goods , origin where goods.gsupplier = origin.gsupplier";
         return getBeanList(connection, sql);
     }
 }

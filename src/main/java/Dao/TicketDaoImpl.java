@@ -23,4 +23,5 @@ public class TicketDaoImpl extends BaseDao<Allentity> implements TicketDao {
         String sql = "select vintegral,sintegral from vipcustomer,vsales where vsales.vid  = vipcustomer.vid and vsales.vid = ?";
         return getBeanList(connection, sql, Ticketevent.secondString);
     }
+
 }

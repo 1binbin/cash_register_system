@@ -5,9 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0"
-         prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8"
-         xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cash_register_system.Adminevent">
+<TabPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+         minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx/8" fx:controller="com.example.cash_register_system.Adminevent">
     <tabs>
         <Tab onClosed="#admingoods" onSelectionChanged="#admingoods" text="商品管理">
             <content>
@@ -461,7 +461,6 @@
                                                                                 </Label>
                                                                                 <ComboBox fx:id="provincecb"
                                                                                           onAction="#cityempty"
-                                                                                          onMouseClicked="#setemptybelled"
                                                                                           prefHeight="30.0"
                                                                                           prefWidth="150.0"
                                                                                           promptText="省份"/>

@@ -25,6 +25,8 @@ public interface CashierDao {
 
     void insertTicket(Connection connection);
 
+    void insertTicketc(Connection connection);
+
     void updateTicksttnum(Connection connection);
 
     void updateGoodsgnum(Connection connection);
@@ -171,4 +173,6 @@ public interface CashierDao {
     void updateEmployeeepassword(Connection connection);
 
     List<Allentity> getTicket(Connection connection);
+
+    List<Allentity> getIntegral(Connection connection);
 }
