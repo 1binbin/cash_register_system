@@ -1,45 +1,43 @@
-create table if not exists ecategory
+create table if not exists employeec
 (
-    employee char(128) not null,
-    constraint ecategory_employee_uindex
-        unique (employee)
+    erole char(16) not null
+        primary key,
+    constraint employeec_erole_uindex
+        unique (erole)
 );
-
-alter table ecategory
-    add primary key (employee);
 
 create table if not exists employee
 (
-    eid       char(12)                           not null
+    eid       char(10)                          not null
         primary key,
-    ename     char(12)                           null,
-    epassword char(64)                           null,
-    eaddress  char(128)     default '-'          null,
-    edaddress char(255)     default '-'          null,
-    ephone    char(12)      default '-'          null,
-    ebirthday date          default '1970-01-01' null,
-    erole     char(128)                          null,
-    esex      char(4)                            null,
-    esalary   double(12, 2) default 0.00         null,
+    ename     char(8)                           null,
+    epassword char(20)                          null,
+    eaddress  char(64)     default '-'          null,
+    edaddress char(64)     default '-'          null,
+    ephone    char(12)     default '-'          null,
+    ebirthday date         default '1970-01-01' null,
+    erole     char(16)                          null,
+    esex      char(4)                           null,
+    esalary   double(7, 2) default 0.00         null,
     constraint employee_ibfk_1
-        foreign key (erole) references ecategory (employee)
+        foreign key (erole) references employeec (erole)
+            on update cascade on delete cascade
 );
 
-create index erole
-    on employee (erole);
-
-create table if not exists gcategory
+create table if not exists goodsc
 (
-    goods char(128) not null
-        primary key
+    gcategory char(16) not null
+        primary key,
+    constraint goodsc_gcategory_uindex
+        unique (gcategory)
 );
 
 create table if not exists insign
 (
-    idate    datetime not null
-        primary key,
+    eid      char(10) not null,
+    idate    datetime not null,
     ioutdate datetime null,
-    eid      char(12) null,
+    primary key (idate, eid),
     constraint insign_employee_eid_fk
         foreign key (eid) references employee (eid)
             on update cascade on delete cascade
@@ -47,8 +45,17 @@ create table if not exists insign
 
 create table if not exists integral
 (
-    ivalue int null,
-    pvalue int null
+    ivalue int default 1,
+    pvalue int default 1
+);
+
+create table if not exists origin
+(
+    gsupplier char(32) not null
+        primary key,
+    gorigin   char(32) null,
+    constraint origin_gsupplier_uindex
+        unique (gsupplier)
 );
 
 create table if not exists province
@@ -82,56 +89,70 @@ create table if not exists area
 
 create table if not exists reficition
 (
-    reficitions char(128) not null
-        primary key
+    specifications char(16) not null
+        primary key,
+    constraint reficition_specifications_uindex
+        unique (specifications)
 );
 
 create table if not exists goods
 (
-    gid            char(64)                   not null,
-    gname          char(128)                  null,
-    gcategory      char(128)                  not null,
-    gorigin        char(128)                  null,
-    gsupplier      char(128)                  null,
-    gindate        date                       null,
-    gnum           double        default 0    null,
-    gpurchaseprice double(12, 2) default 0.00 null,
-    gpprice        double(12, 2) default 0.00 null,
-    gvprice        double(12, 2) as ((`gpprice` * `gdiscount`)),
-    gdiscount      double(2, 2)  default 0.00 null,
-    specifications char(128)                  not null,
+    gid            char(16)                  not null
+        primary key,
+    gname          char(32)                  null,
+    gcategory      char(16)                  not null,
+    gsupplier      char(32)                  null,
+    gindate        date                      null,
+    gnum           double       default 0    null,
+    gpurchaseprice double(6, 2) default 0.00 null,
+    gpprice        double(6, 2) default 0.00 null,
+    gvprice        double(6, 2) as ((`gpprice` * `gdiscount`)),
+    gdiscount      double(3, 2) default 0.00 null,
+    specifications char(16)                  null,
     constraint goods_gid_uindex
         unique (gid),
-    constraint goods_gcategory_goods_fk
-        foreign key (gcategory) references gcategory (goods)
+    constraint goods_goodsc_gcategory_fk
+        foreign key (gcategory) references goodsc (gcategory)
             on update cascade on delete cascade,
-    constraint goods_reficition_reficitions_fk
-        foreign key (specifications) references reficition (reficitions)
-            on update cascade on delete cascade
+    constraint goods_origin_gsupplier_fk
+        foreign key (gsupplier) references origin (gsupplier)
+            on update cascade on delete cascade,
+    constraint goods_reficition_specifications_fk
+        foreign key (specifications) references reficition (specifications)
+            on update cascade on delete cascade,
+    check ((`gdiscount` >= 0.00) and (`gdiscount` <= 1.00))
 );
 
-alter table goods
-    add primary key (gid);
+create table if not exists ticketc
+(
+    tid char(12) not null
+        primary key,
+    constraint ticketc_tid_uindex
+        unique (tid)
+);
 
 create table if not exists ticket
 (
-    tid  char(12)      not null,
-    gid  char(64)      not null,
-    tnum double(12, 2) null,
+    tid  char(12)     not null,
+    gid  char(16)     not null,
+    tnum double(6, 2) null,
     primary key (tid, gid),
     constraint ticket_ibfk_1
         foreign key (gid) references goods (gid)
+            on update cascade on delete cascade,
+    constraint ticket_ibfk_2
+        foreign key (tid) references ticketc (tid)
             on update cascade on delete cascade
 );
 
 create table if not exists psales
 (
-    tid   char(12)      not null
-        primary key,
-    pid   char(15)      null,
-    pdate datetime      null,
-    pcash double(12, 2) null,
-    eid   char(12)      null,
+    tid   char(12)     not null,
+    pid   char(15)     null,
+    pdate datetime     null,
+    pcash double(8, 2) null,
+    eid   char(10)     not null,
+    primary key (tid, eid),
     constraint psales_employee_eid_fk
         foreign key (eid) references employee (eid),
     constraint psales_ticket_tid_fk
@@ -141,26 +162,28 @@ create table if not exists psales
 
 create table if not exists vipcustomer
 (
-    vid       char(15)             not null
+    vid       char(15) not null
         primary key,
-    vname     char(12) default '-' null,
-    vsex      char(4)  default '-' null,
-    vphone    char(12) default '-' null,
-    vintegral int      default 0   null,
-    vrdate    date                 null,
-    vodate    date                 null,
-    vstate    char(8)              null
+    vname     char(10) null,
+    vsex      char(4)  null,
+    vphone    char(12) null,
+    vrdate    date     null,
+    vodate    date     null,
+    vstate    char(8)  null,
+    vintegral int      null,
+    constraint vipcustomer_vid_uindex
+        unique (vid)
 );
 
 create table if not exists vsales
 (
-    tid       char(12)                   not null
-        primary key,
-    vid       char(15)                   null,
-    sdate     datetime                   null,
-    scash     double(12, 2)              null,
-    eid       char(12)                   null,
-    sintegral double(12, 2) default 0.00 null,
+    tid       char(12)     not null,
+    vid       char(15)     not null,
+    sdate     datetime     null,
+    scash     double(8, 2) null,
+    eid       char(10)     not null,
+    sintegral int          null,
+    primary key (tid, vid, eid),
     constraint sales_employee_eid_fk
         foreign key (eid) references employee (eid)
             on update cascade on delete cascade,
@@ -171,6 +194,7 @@ create table if not exists vsales
         foreign key (vid) references vipcustomer (vid)
             on update cascade on delete cascade
 );
+
 insert into ecategory value ('<空>');
 insert into ecategory value ('管理员');
 insert into gcategory value ('<空>');
