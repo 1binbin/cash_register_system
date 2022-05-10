@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.cash_register_system.Adminevent">
+    <children>
+        <VBox alignment="CENTER" layoutX="132.0" layoutY="58.0" prefHeight="197.0" prefWidth="400.0"
+              AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="10.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="400.0" spacing="20.0">
+                    <children>
+                        <Label text="选择 .xls 文件">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#choosefile" prefHeight="30.0" text="选择文件">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#badownload" prefHeight="30.0" text="模板下载">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <padding>
+                        <Insets left="20.0"/>
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="400.0" spacing="20.0">
+                    <children>
+                        <Label text="文 件 名">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="filetf" prefHeight="30.0" prefWidth="272.0" promptText="文件名"/>
+                    </children>
+                    <opaqueInsets>
+                        <Insets left="20.0"/>
+                    </opaqueInsets>
+                    <padding>
+                        <Insets left="20.0"/>
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0" spacing="80.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#refresh" prefHeight="30.0" text="重   置">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#okbutton" prefHeight="30.0" text="确   定">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets left="30.0"/>
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

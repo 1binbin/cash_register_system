@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane onMouseMoved="#setinfornation" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cash_register_system.Ticketevent">
+    <children>
+        <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="150.0" layoutY="236.0" prefHeight="200.0"
+              prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="超 市 小 票" textAlignment="CENTER" textFill="RED">
+                    <font>
+                        <Font name="System Bold Italic" size="24.0"/>
+                    </font>
+                </Label>
+                <GridPane hgap="5.0" prefHeight="45.0" prefWidth="380.0" vgap="5.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="106.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="269.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label contentDisplay="CENTER" text="销售时间" GridPane.halignment="CENTER"
+                               GridPane.valignment="CENTER"/>
+                        <Label contentDisplay="CENTER" text="收 银 员" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                               GridPane.valignment="CENTER"/>
+                        <Label fx:id="saletime" GridPane.columnIndex="1" GridPane.halignment="LEFT"/>
+                        <Label fx:id="saleeid" GridPane.columnIndex="1" GridPane.halignment="LEFT"
+                               GridPane.rowIndex="1"/>
+                    </children>
+                </GridPane>
+                <GridPane prefHeight="30.0" prefWidth="379.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="102.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="83.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="54.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="5.0" prefWidth="58.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="5.0" prefWidth="41.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="5.0" prefWidth="47.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label text="商品编号" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                        <Label text="商品名称" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                               GridPane.valignment="CENTER"/>
+                        <Label text="零售价" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+                               GridPane.valignment="CENTER"/>
+                        <Label text="会员价" GridPane.columnIndex="3" GridPane.halignment="CENTER"
+                               GridPane.valignment="CENTER"/>
+                        <Label text="数量" GridPane.columnIndex="4" GridPane.halignment="CENTER"/>
+                        <Label text="规格" GridPane.columnIndex="5" GridPane.halignment="CENTER"
+                               GridPane.valignment="CENTER"/>
+                    </children>
+                </GridPane>
+                <TextArea fx:id="tinfornation" editable="false" prefHeight="320.0" prefWidth="375.0" wrapText="true"/>
+                <VBox fillWidth="false" prefHeight="232.0" prefWidth="356.0" spacing="10.0">
+                    <children>
+                        <GridPane prefHeight="88.0" prefWidth="337.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="97.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="88.0" minWidth="10.0" prefWidth="83.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="79.0" minWidth="10.0" prefWidth="77.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.0" minWidth="10.0" prefWidth="29.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label text="总价合计" GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
+                                <Label text="售出商品数" GridPane.halignment="CENTER" GridPane.rowIndex="2"/>
+                                <Label fx:id="tnumprice" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                       GridPane.rowIndex="1"/>
+                                <Label fx:id="tcountnum" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                       GridPane.rowIndex="2"/>
+                                <Label text="实付金额" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+                                       GridPane.rowIndex="1"/>
+                                <Label text="找  零" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+                                       GridPane.rowIndex="2"/>
+                                <Label fx:id="tcash" GridPane.columnIndex="3" GridPane.halignment="CENTER"
+                                       GridPane.rowIndex="1"/>
+                                <Label fx:id="tchance" GridPane.columnIndex="3" GridPane.halignment="CENTER"
+                                       GridPane.rowIndex="2"/>
+                                <Label contentDisplay="CENTER" text="小票编号" GridPane.halignment="CENTER"
+                                       GridPane.valignment="CENTER"/>
+                                <Label fx:id="ttidlabel" GridPane.columnIndex="1" GridPane.columnSpan="2"
+                                       GridPane.halignment="CENTER"/>
+                            </children>
+                        </GridPane>
+                        <GridPane fx:id="vipg" prefHeight="90.0" prefWidth="330.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="88.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="69.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="86.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0"
+                                                   prefWidth="102.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label text="尊 贵 的  VIP 客 户" GridPane.columnSpan="4" GridPane.halignment="CENTER">
+                                    <font>
+                                        <Font size="17.0"/>
+                                    </font>
+                                </Label>
+                                <Label text="会员编号" GridPane.halignment="CENTER" GridPane.rowIndex="1"/>
+                                <Label text="总积分" GridPane.halignment="CENTER" GridPane.rowIndex="2"/>
+                                <Label fx:id="tvid" GridPane.columnIndex="1" GridPane.columnSpan="3"
+                                       GridPane.rowIndex="1"/>
+                                <Label fx:id="tintergal" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                <Label text="本次积分" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                                <Label fx:id="binla" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets top="20.0"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

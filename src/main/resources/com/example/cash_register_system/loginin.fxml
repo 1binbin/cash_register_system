@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0"
+      prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.cash_register_system.LogininEvent">
+    <children>
+        <GridPane alignment="CENTER" hgap="5.0" layoutX="15.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="367.0">
+            <children>
+                <TextField fx:id="idtf" prefHeight="30.0" promptText="请输入正确的编号" GridPane.columnIndex="1"/>
+                <Label prefHeight="40.0" prefWidth="53.0" text="账   号" textAlignment="CENTER"
+                       textOverrun="CENTER_ELLIPSIS" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <Label prefHeight="30.0" prefWidth="53.0" text="密   码" textAlignment="CENTER"
+                       textOverrun="CENTER_ELLIPSIS" GridPane.halignment="RIGHT" GridPane.rowIndex="1"
+                       GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <Label prefHeight="30.0" prefWidth="52.0" text="角   色" textAlignment="CENTER"
+                       textOverrun="CENTER_ELLIPSIS" GridPane.halignment="RIGHT" GridPane.rowIndex="3"
+                       GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <PasswordField fx:id="passwordtf" onMouseEntered="#setCodetf" prefHeight="30.0" prefWidth="222.0"
+                               promptText="请输入正确的密码" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="322.0" spacing="25.0"
+                      GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <RadioButton fx:id="roleadmin" mnemonicParsing="false" prefHeight="30.0" selected="true"
+                                     text="管理员">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="erole"/>
+                            </toggleGroup>
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </RadioButton>
+                        <RadioButton fx:id="roleemployee" mnemonicParsing="false" prefHeight="30.0" text="收银员"
+                                     toggleGroup="$erole">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </RadioButton>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1"
+                      GridPane.rowIndex="4">
+                    <children>
+                        <Button fx:id="resetbutton" mnemonicParsing="false" onAction="#setResetbutton" text="重  置">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="okbutton" alignment="CENTER" mnemonicParsing="false" onAction="#setOkbutton"
+                                text="确  定" textAlignment="CENTER">
+                            <font>
+                                <Font size="17.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <Label fx:id="findpasswordlabel" alignment="CENTER" onMouseClicked="#setFindpasswordlabel" text="重置密码"
+                       textAlignment="CENTER" textFill="#fc0000" textOverrun="WORD_ELLIPSIS" GridPane.columnIndex="2"
+                       GridPane.rowIndex="1">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="58.0" text="验证码"
+                       textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="2"
+                       GridPane.valignment="CENTER">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="codetf" onMouseEntered="#setCodetf" prefHeight="30.0" promptText="请输入验证码 不区分大小写"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="codelabble" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                    <font>
+                        <Font size="17.0"/>
+                    </font>
+                </Label>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0"
+                                   prefWidth="76.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="425.0" minWidth="10.0" prefWidth="198.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="425.0" minWidth="10.0" prefWidth="76.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="248.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="287.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="287.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="264.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="264.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <padding>
+                <Insets left="5.0"/>
+            </padding>
+        </GridPane>
+        <Label layoutX="83.0" layoutY="26.0" prefHeight="39.0" prefWidth="234.0" text="超 市 管 理 系 统"
+               textAlignment="JUSTIFY" textOverrun="WORD_ELLIPSIS">
+            <font>
+                <Font size="30.0"/>
+            </font>
+        </Label>
+        <Label fx:id="labelled" layoutX="119.0" layoutY="295.0" textFill="#eb0000">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+    </children>
+</Pane>

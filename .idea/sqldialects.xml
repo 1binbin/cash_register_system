@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/../../China city  sql/cashier_system_area.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../China city  sql/cashier_system_city.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../China city  sql/cashier_system_province.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../China city  sql/createtable.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/sql/script - 副本.sql" dialect="MySQL" />
+  </component>
+</project>
