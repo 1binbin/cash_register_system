@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author hongxiaobin
@@ -510,21 +511,9 @@ public class Cashierevent {
             if (!istidlist.isEmpty()) {
                 if (!cccashtf.getText().isEmpty()) {
                     try {
-                        Double.parseDouble(cccashtf.getText());
-                        if (Double.parseDouble(cccashtf.getText()) >= 0) {
-                            boolean is;
-                            if (Double.parseDouble(cccashtf.getText()) >= Double.parseDouble(ccpricesumtf.getText())) {
-                                if (cccashtf.getText().contains(".")) {
-                                    if (cccashtf.getText().substring(cccashtf.getText().indexOf(".") + 1).length() <= 2) {
-                                        is = true;
-                                    } else {
-                                        is = false;
-                                        function.setAlert("现金小数后最多为两位");
-                                    }
-                                } else {
-                                    is = true;
-                                }
-                            } else {
+                        if (Pattern.matches("^(([0-9]+)|([0-9]+\\.[0-9]{0,2}))$", cccashtf.getText())) {
+                            boolean is = true;
+                            if (Double.parseDouble(cccashtf.getText()) < Double.parseDouble(ccpricesumtf.getText())) {
                                 is = false;
                                 function.setAlert("现金低于总价，请重新付款！");
                             }
@@ -619,7 +608,7 @@ public class Cashierevent {
                                 }
                             }
                         } else {
-                            function.setAlert("现金输入不是正数！");
+                            function.setAlert("现金输入需为最多两位小数的非负数！");
                         }
                     } catch (NumberFormatException e) {
                         function.setAlert("现金输入不是数字！");

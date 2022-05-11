@@ -36,6 +36,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author hongxiaobin
@@ -1687,28 +1688,12 @@ public class Adminevent {
 
     private double getsalary() {
         double salary = 0.0;
-        try {
-            Double.parseDouble(esalarytf.getText());
-            if (Double.parseDouble(esalarytf.getText()) >= 0) {
-                if (esalarytf.getText().contains(".")) {
-                    if ((esalarytf.getText().substring(esalarytf.getText().indexOf(".") + 1)).length() <= 2) {
-                        isget = true;
-                        salary = Double.parseDouble(esalarytf.getText());
-                    } else {
-                        isget = false;
-                        function.setAlert("基本工资小数点后最多为两位！");
-                    }
-                } else {
-                    isget = true;
-                    salary = Double.parseDouble(esalarytf.getText());
-                }
-            } else {
-                isget = false;
-                function.setAlert("基本工资不是正数！");
-            }
-        } catch (NumberFormatException e) {
+        if (Pattern.matches("^(([0-9]+)|([0-9]+\\.[0-9]{0,2}))$", esalarytf.getText())) {
+            isget = true;
+            salary = Double.parseDouble(esalarytf.getText());
+        } else {
             isget = false;
-            function.setAlert("基本工资输入不是数字！");
+            function.setAlert("基本工资格式为最多两位小数的非负数！");
         }
         return salary;
     }
