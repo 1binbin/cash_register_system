@@ -195,22 +195,31 @@ create table if not exists vsales
             on update cascade on delete cascade
 );
 
-insert into ecategory value ('<空>');
-insert into ecategory value ('管理员');
-insert into gcategory value ('<空>');
+insert into goodsc value ('<空>');
+insert into employeec value ('管理员');
 insert into reficition value ('<空>');
+insert into integral value (1, 1);
 
-insert into employee(eid,epassword,ename,erole,esex) value ('1234567890','1234567890','管理员','管理员','男');
+insert into employee(eid, epassword, ename, erole, esex) value ('1234567890', 'admin', '管理员', '管理员', '男');
 
-INSERT INTO province (provinceID, province) VALUES (110000, '北京市');
-INSERT INTO province (provinceID, province) VALUES (120000, '天津市');
-INSERT INTO province (provinceID, province) VALUES (130000, '河北省');
-INSERT INTO province (provinceID, province) VALUES (140000, '山西省');
-INSERT INTO province (provinceID, province) VALUES (150000, '内蒙古自治区');
-INSERT INTO province (provinceID, province) VALUES (210000, '辽宁省');
-INSERT INTO province (provinceID, province) VALUES (220000, '吉林省');
-INSERT INTO province (provinceID, province) VALUES (230000, '黑龙江省');
-INSERT INTO province (provinceID, province) VALUES (310000, '上海市');
+INSERT INTO province (provinceID, province)
+VALUES (110000, '北京市');
+INSERT INTO province (provinceID, province)
+VALUES (120000, '天津市');
+INSERT INTO province (provinceID, province)
+VALUES (130000, '河北省');
+INSERT INTO province (provinceID, province)
+VALUES (140000, '山西省');
+INSERT INTO province (provinceID, province)
+VALUES (150000, '内蒙古自治区');
+INSERT INTO province (provinceID, province)
+VALUES (210000, '辽宁省');
+INSERT INTO province (provinceID, province)
+VALUES (220000, '吉林省');
+INSERT INTO province (provinceID, province)
+VALUES (230000, '黑龙江省');
+INSERT INTO province (provinceID, province)
+VALUES (310000, '上海市');
 INSERT INTO province (provinceID, province) VALUES (320000, '江苏省');
 INSERT INTO province (provinceID, province) VALUES (330000, '浙江省');
 INSERT INTO province (provinceID, province) VALUES (340000, '安徽省');
