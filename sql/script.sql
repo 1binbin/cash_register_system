@@ -200,8 +200,10 @@ insert into employeec value ('管理员');
 insert into reficition value ('<空>');
 insert into integral value (1, 1);
 
+# 插入默认的表格数据
 insert into employee(eid, epassword, ename, erole, esex) value ('1234567890', 'admin', '管理员', '管理员', '男');
 
+# 插入省份，城市以及县区的表格数据
 INSERT INTO province (provinceID, province)
 VALUES (110000, '北京市');
 INSERT INTO province (provinceID, province)
