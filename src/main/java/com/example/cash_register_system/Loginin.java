@@ -2,18 +2,20 @@ package com.example.cash_register_system;
 
 import Dao.LoginDaoImpl;
 import JDBCUtils.Allentity;
-import JDBCUtils.JdbcConnection;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * @author hongxiaobin
@@ -23,17 +25,27 @@ public class Loginin extends Application {
     public static Stage stageclose;
     public static Stage deleteclose;
     public static Stage addclose;
-    LoginDaoImpl loginDao = new LoginDaoImpl();
-    Function function = new Function();
-    private Connection connection;
+    public static Connection connection;
     public static List<Allentity> employeelist = new ArrayList<>();
+    LoginDaoImpl loginDao = new LoginDaoImpl();
 
-    {
-        try {
-            connection = JdbcConnection.getConnection();
-        } catch (Exception e) {
-            function.setAlert(e.getMessage());
-        }
+    /**
+     * 初始化数据库连接
+     *
+     * @Param:
+     * @Return:
+     */
+    @Override
+    public void init() throws Exception {
+        InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("jdbc.properties");
+        Properties properties = new Properties();
+        properties.load(inputStream);
+        String driver = properties.getProperty("driver");
+        String user = properties.getProperty("user");
+        String password = properties.getProperty("password");
+        String url = properties.getProperty("url");
+        Class.forName(driver);
+        connection = DriverManager.getConnection(url, user, password);
     }
 
     @Override
