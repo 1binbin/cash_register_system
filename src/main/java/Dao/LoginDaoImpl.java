@@ -19,6 +19,12 @@ public class LoginDaoImpl extends BaseDao<Allentity> implements LoginDao {
     }
 
     @Override
+    public List<Allentity> getEmployeeEid(Connection connection, String eid) {
+        String sql = "select * from employee where eid = ?";
+        return getBeanList(connection, sql, eid);
+    }
+
+    @Override
     public void updateEmployee(Connection connection) {
         String sql = "update employee set epassword = ? where eid = ?";
         update(connection, sql, LogininEvent.epassword, LogininEvent.eid);

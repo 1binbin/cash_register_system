@@ -264,7 +264,7 @@ public class LogininEvent {
     @FXML
     protected void setEdit() {
         eid = fidtf.getText();
-        List<Allentity> list = loginDaoImpl.getEmployee(connection);
+        List<Allentity> list = loginDaoImpl.getEmployeeEid(connection, eid);
         if (!list.isEmpty()) {
             if ("管理员".equals(list.get(0).getErole())) {
                 a = 1;

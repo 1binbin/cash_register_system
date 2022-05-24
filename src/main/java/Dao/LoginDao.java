@@ -15,7 +15,12 @@ public interface LoginDao {
      * 查询所有员工
      */
     List<Allentity> getEmployee(Connection connection);
-    /**修改员工信息*/
+
+    List<Allentity> getEmployeeEid(Connection connection, String eid);
+
+    /**
+     * 修改员工信息
+     */
     void updateEmployee(Connection connection);
     List<Allentity> getEcategory(Connection connection);
     List<Allentity> getGcategory(Connection connection);
