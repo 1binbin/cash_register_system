@@ -3,6 +3,8 @@ import com.example.cash_register_system.Loginin;
 import java.sql.Connection;
 
 /**
+ * 数据库连接测试方法
+ *
  * @Author hongxiaobin
  * @Time 2022/5/24-15:23
  */
