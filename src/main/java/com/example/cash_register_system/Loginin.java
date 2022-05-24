@@ -1,7 +1,5 @@
 package com.example.cash_register_system;
 
-import Dao.LoginDaoImpl;
-import JDBCUtils.Allentity;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +10,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -26,8 +22,6 @@ public class Loginin extends Application {
     public static Stage deleteclose;
     public static Stage addclose;
     public static Connection connection;
-    public static List<Allentity> employeelist = new ArrayList<>();
-    LoginDaoImpl loginDao = new LoginDaoImpl();
 
     /**
      * 初始化数据库连接
@@ -50,7 +44,6 @@ public class Loginin extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        employeelist = loginDao.getEmployee(connection);
         loginStage().show();
     }
 

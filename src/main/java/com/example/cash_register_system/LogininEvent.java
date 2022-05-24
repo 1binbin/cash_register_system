@@ -24,11 +24,13 @@ public class LogininEvent {
     public static String gid;
     public static String logintime;
     public static String fristString;
+    public static List<Allentity> employeelist = new ArrayList<>();
     private static String code;
     private static int a;
     private final LoginDaoImpl loginDaoImpl = new LoginDaoImpl();
     @FXML
     public TextField idtf;
+    LoginDaoImpl loginDao = new LoginDaoImpl();
     Loginin loginin = new Loginin();
     List<Allentity> list = new ArrayList<>();
     private Connection connection = null;
@@ -65,6 +67,7 @@ public class LogininEvent {
     {
         try {
             connection = JdbcConnection.getConnection();
+            employeelist = loginDao.getEmployee(connection);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,9 +94,9 @@ public class LogininEvent {
         }
         if (!idtf.getText().isEmpty() && !passwordtf.getText().isEmpty()) {
             eid = idtf.getText();
-            for (int i = 0; i < Loginin.employeelist.size(); i++) {
-                if (Loginin.employeelist.get(i).getEid().equals(eid)) {
-                    list.add(Loginin.employeelist.get(i));
+            for (int i = 0; i < employeelist.size(); i++) {
+                if (employeelist.get(i).getEid().equals(eid)) {
+                    list.add(employeelist.get(i));
                     break;
                 }
             }
