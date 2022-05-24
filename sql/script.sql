@@ -196,7 +196,7 @@ create table if not exists vsales
 );
 
 insert into goodsc value ('<空>');
-insert into employeec value ('管理员');
+insert into employeec value ('管理员'),('<空>');
 insert into reficition value ('<空>');
 insert into integral value (1, 1);
 
