@@ -710,7 +710,7 @@ public class Cashierevent {
 
     @FXML
     protected void csareashow() {
-        function.setareashow(cscitycb, csareacb);
+        function.setareashow(csprovincecb, cscitycb, csareacb);
     }
 
     @FXML
@@ -1399,7 +1399,7 @@ public class Cashierevent {
 
     @FXML
     protected void peareashow() {
-        function.setareashow(ppcity, pparea);
+        function.setareashow(ppprovince, ppcity, pparea);
     }
 
     private double countprice(Object vsql, Object psql) {

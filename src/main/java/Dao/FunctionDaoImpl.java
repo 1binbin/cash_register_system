@@ -20,8 +20,8 @@ public class FunctionDaoImpl extends BaseDao<Allentity> implements FunctionDao {
 
     @Override
     public List<Allentity> getArea(Connection connection) {
-        String sql = "select area from area where cityID in (select cityID from city where city = ?)";
-        return getBeanList(connection, sql, Function.fristString);
+        String sql = "select * from area where cityID in (select cityID from city where city = ? and provinceID in (select provinceID from province where province = ?));";
+        return getBeanList(connection, sql, Function.fristString, Function.secondString);
     }
 
     @Override

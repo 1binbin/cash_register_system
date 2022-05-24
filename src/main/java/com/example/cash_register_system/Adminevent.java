@@ -699,7 +699,7 @@ public class Adminevent {
 
     @FXML
     protected void sareashow() {
-        function.setareashow(scitycb, sareacb);
+        function.setareashow(sprovincecb, scitycb, sareacb);
     }
 
     //    货物导出数据
@@ -1071,7 +1071,7 @@ public class Adminevent {
 
     @FXML
     protected void areashow() {
-        function.setareashow(citycb, areacb);
+        function.setareashow(provincecb, citycb, areacb);
     }
 
     //    更新界面产地选择
@@ -1095,7 +1095,7 @@ public class Adminevent {
 
     @FXML
     protected void uareashow() {
-        function.setareashow(ucitycb, uareacb);
+        function.setareashow(uprovincecb, ucitycb, uareacb);
     }
 
     @FXML
@@ -1942,7 +1942,7 @@ public class Adminevent {
 
     @FXML
     protected void eareashow() {
-        function.setareashow(ecitycb, eareacb);
+        function.setareashow(eprovincecb, ecitycb, eareacb);
     }
 
     /*类别管理界面事件*/

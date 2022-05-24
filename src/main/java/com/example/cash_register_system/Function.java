@@ -76,8 +76,9 @@ public class Function {
         }
     }
 
-    public void setareashow(ComboBox<String> ucitycb, ComboBox<String> uareacb) {
+    public void setareashow(ComboBox<String> provincech, ComboBox<String> ucitycb, ComboBox<String> uareacb) {
         fristString = ucitycb.getValue();
+        secondString = provincech.getValue();
         List<Allentity> list = functionDao.getArea(connection);
         if (uareacb.getItems().isEmpty()) {
             assert list != null;
