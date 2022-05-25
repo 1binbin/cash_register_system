@@ -64,8 +64,8 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
 
     @Override
     public void updateGoodsgnum(Connection connection) {
-        String sql = "update goods set gnum = gnum - ?";
-        update(connection, sql, Cashierevent.fristString);
+        String sql = "update goods set gnum = gnum - ? where gid = ?";
+        update(connection, sql, Cashierevent.fristString, Cashierevent.secondString);
     }
 
     @Override
@@ -373,20 +373,27 @@ public class CashierDaoImpl extends BaseDao<Allentity> implements CashierDao {
 
     @Override
     public Object getPsalespcountvid(Connection connection) {
-        String sql  ="select count(distinct tid) from psales where eid = ? and pid like concat('%',?,'%')";
-        return getValue(connection,sql,Cashierevent.fristString,Cashierevent.secondString);
+        String sql = "select count(distinct tid) from psales where eid = ? and pid like concat('%',?,'%')";
+        return getValue(connection, sql, Cashierevent.fristString, Cashierevent.secondString);
     }
 
     @Override
     public List<Allentity> getPsqlessqldate(Connection connection) {
-        String sql  ="select * from vsales where eid = ? and sdate >= ? and sdate <= ? union all select tid, pid vid, pdate sdate, pcash scash, eid, 0 sintegral from psales where eid = ? and pdate >= ? and pdate <= ?";
-        return getBeanList(connection,sql,Cashierevent.fristString,Cashierevent.thirdString,Cashierevent.fourthString,Cashierevent.fristString,Cashierevent.thirdString,Cashierevent.fourthString);
+        String sql = "select * from vsales where eid = ? and sdate >= ? and sdate <= ? union all select tid, pid vid, pdate sdate, pcash scash, eid, 0 sintegral from psales where eid = ? and pdate >= ? and pdate <= ?";
+        return getBeanList(connection, sql, Cashierevent.fristString, Cashierevent.thirdString, Cashierevent.fourthString, Cashierevent.fristString, Cashierevent.thirdString, Cashierevent.fourthString);
     }
 
     @Override
+    public List<Allentity> selectGunm(Connection connection) {
+        String sql = "select gnum from goods where gid = ?";
+        return getBeanList(connection, sql, Cashierevent.fristString);
+    }
+
+
+    @Override
     public Object getPsalesvsqldate(Connection connection) {
-        String sql  ="select sum(goods.gvprice * ticket.tnum) from goods,ticket,vsales where goods.gid = ticket.gid and vsales.tid = ticket.tid  and eid = ? and sdate >= ? and sdate <= ?";
-        return getValue(connection,sql,Cashierevent.fristString,Cashierevent.thirdString,Cashierevent.fourthString);
+        String sql = "select sum(goods.gvprice * ticket.tnum) from goods,ticket,vsales where goods.gid = ticket.gid and vsales.tid = ticket.tid  and eid = ? and sdate >= ? and sdate <= ?";
+        return getValue(connection, sql, Cashierevent.fristString, Cashierevent.thirdString, Cashierevent.fourthString);
     }
 
     @Override

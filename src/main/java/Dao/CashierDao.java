@@ -139,6 +139,8 @@ public interface CashierDao {
 
     List<Allentity> getPsqlessqldate(Connection connection);
 
+    List<Allentity> selectGunm(Connection connection);
+
     Object getPsalesvsqldate(Connection connection);
 
     Object getPsalespsqldate(Connection connection);

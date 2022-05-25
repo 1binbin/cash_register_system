@@ -383,43 +383,49 @@ public class Cashierevent {
         if (!ccgidtf.getText().isEmpty() && !cctnumtf.getText().isEmpty()) {
             fristString = ccgidtf.getText();
             List<Allentity> list = cashierDao.getGoodsgid(connection);
+            List<Allentity> listGnum = cashierDao.selectGunm(connection);
             assert list != null;
             if (!list.isEmpty()) {
                 try {
                     Double.parseDouble(cctnumtf.getText());
-                    if (Double.parseDouble(cctnumtf.getText()) > 0) {
-                        ttid = tid;
-                        fristString = tid;
-                        secondString = ccgidtf.getText();
-                        List<Allentity> list1 = cashierDao.getTickettidgid(connection);
-                        assert list1 != null;
-                        if (list1.isEmpty()) {
+                    if (listGnum.get(0).getGnum() >= Double.parseDouble(cctnumtf.getText())) {
+                        if (Double.parseDouble(cctnumtf.getText()) > 0 && Double.parseDouble(cctnumtf.getText()) <= 9999.99) {
+                            ttid = tid;
                             fristString = tid;
                             secondString = ccgidtf.getText();
-                            thirdString = cctnumtf.getText();
-                            List<Allentity> list2 = cashierDao.getTicket(connection);
-                            if (list2.isEmpty()) {
-                                cashierDao.insertTicketc(connection);
+                            List<Allentity> list1 = cashierDao.getTickettidgid(connection);
+                            assert list1 != null;
+                            if (list1.isEmpty()) {
+                                fristString = tid;
+                                secondString = ccgidtf.getText();
+                                thirdString = cctnumtf.getText();
+                                List<Allentity> list2 = cashierDao.getTicket(connection);
+                                if (list2.isEmpty()) {
+                                    cashierDao.insertTicketc(connection);
+                                }
+                                cashierDao.insertTicket(connection);
+                            } else {
+                                fristString = cctnumtf.getText();
+                                cashierDao.updateTicksttnum(connection);
                             }
-                            cashierDao.insertTicket(connection);
-                        } else {
                             fristString = cctnumtf.getText();
-                            cashierDao.updateTicksttnum(connection);
-                        }
-                        fristString = cctnumtf.getText();
-                        cashierDao.updateGoodsgnum(connection);
-                        ccgidtf.clear();
-                        cctnumtf.clear();
-                        fristString = tid;
-                        ccnumsumtf.setText(String.valueOf(cashierDao.getTicketsumtnum(connection)));
-                        if (!truerb.isSelected()) {
-                            ccpricesumtf.setText(cashierDao.getpPrice(connection) + "");
+                            secondString = ccgidtf.getText();
+                            cashierDao.updateGoodsgnum(connection);
+                            ccgidtf.clear();
+                            cctnumtf.clear();
+                            fristString = tid;
+                            ccnumsumtf.setText(String.valueOf(cashierDao.getTicketsumtnum(connection)));
+                            if (!truerb.isSelected()) {
+                                ccpricesumtf.setText(cashierDao.getpPrice(connection) + "");
+                            } else {
+                                ccpricesumtf.setText(cashierDao.getvPrice(connection) + "");
+                            }
+                            cctablevalue();
                         } else {
-                            ccpricesumtf.setText(cashierDao.getvPrice(connection) + "");
+                            function.setAlert("数量输入范围为0~9999.99！");
                         }
-                        cctablevalue();
                     } else {
-                        function.setAlert("数量输入不是正数！");
+                        function.setAlert("数量输入超过库存量！！！");
                     }
                 } catch (NumberFormatException e) {
                     function.setAlert("数量输入不是数字！");
