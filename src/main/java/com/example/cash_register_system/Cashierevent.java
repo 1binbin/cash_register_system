@@ -1328,7 +1328,6 @@ public class Cashierevent {
 
     @FXML
     protected void setupdateokbutton() {
-
         if ("姓名".equals(ppcb.getValue())) {
             if (!pptf.getText().isEmpty()) {
                 fristString = pptf.getText();
@@ -1344,7 +1343,6 @@ public class Cashierevent {
                 secondString = LogininEvent.eid;
                 cashierDao.updateEmployeeephone(connection);
                 function.setAlert1("修改成功！");
-
             } else {
                 function.setAlert("修改内容为空！");
 
@@ -1355,15 +1353,20 @@ public class Cashierevent {
                 secondString = ppaddtf.getText();
                 thirdString = LogininEvent.eid;
                 cashierDao.updateEmployeeeadd(connection);
+                function.setAlert1("修改成功！");
             } else {
                 function.setAlert("省份选择为空！");
             }
         } else if ("生日".equals(ppcb.getValue())) {
             if (!(ppdp.getValue() + "").isEmpty()) {
-                fristString = String.valueOf(ppdp.getValue());
-                secondString = LogininEvent.eid;
-                cashierDao.updateEmployeeebirthday(connection);
-                function.setAlert1("修改成功！");
+                if (ppdp.getValue().isBefore(LocalDate.now())) {
+                    fristString = String.valueOf(ppdp.getValue());
+                    secondString = LogininEvent.eid;
+                    cashierDao.updateEmployeeebirthday(connection);
+                    function.setAlert1("修改成功！");
+                } else {
+                    function.setAlert("不能选择超过今天的日期！");
+                }
             } else {
                 function.setAlert("日期选择为空！");
             }
