@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `cashier`
+    DEFAULT CHARACTER SET utf8;
+use cashier;
 create table if not exists employeec
 (
     erole char(16) not null
