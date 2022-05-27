@@ -197,14 +197,49 @@ create table if not exists vsales
         foreign key (vid) references vipcustomer (vid)
             on update cascade on delete cascade
 );
-
+# 插入默认的表格数据
 insert into goodsc value ('<空>');
 insert into employeec value ('管理员'),('<空>');
 insert into reficition value ('<空>');
 insert into integral value (1, 1);
-
-# 插入默认的表格数据
 insert into employee(eid, epassword, ename, erole, esex) value ('1234567890', 'admin', '管理员', '管理员', '男');
+
+# 建立视图
+create view employee_view as
+select eid, ename, eaddress, edaddress, ephone, esex, erole
+from employee;
+
+create view evs_view as
+select goods.gid, employee.eid, vsales.vid, ticket.tid
+from goods,
+     employee,
+     vsales,
+     ticket
+where vsales.eid = employee.eid
+  and goods.gid = ticket.gid
+  and ticket.tid = vsales.tid;
+
+create view eps_view as
+select goods.gid, employee.eid, psales.pid, ticket.tid
+from goods,
+     employee,
+     psales,
+     ticket
+where psales.eid = employee.eid
+  and goods.gid = ticket.gid
+  and ticket.tid = psales.tid;
+
+# 建立索引
+create unique index goods_gid on goods (gid);
+create unique index employee_eid on employee (eid);
+create index employee_epassword on employee (epassword);
+create unique index vipcustomer_vid on vipcustomer (vid);
+create index vipcustomer_vodate on vipcustomer (vodate);
+create unique index origin_gsupplier on origin (gsupplier);
+create unique index reficition_specifications on reficition (specifications);
+create unique index goodsc_gcategory on goodsc (gcategory);
+create unique index employeec_erole on employeec (erole);
+create unique index ticketc_tid on ticketc (tid);
 
 # 插入省份，城市以及县区的表格数据
 INSERT INTO province (provinceID, province)
