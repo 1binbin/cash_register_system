@@ -230,17 +230,9 @@ where psales.eid = employee.eid
   and ticket.tid = psales.tid;
 
 # 建立索引
-create unique index goods_gid on goods (gid);
 create unique index employee_eid on employee (eid);
-create index employee_epassword on employee (epassword);
-create unique index vipcustomer_vid on vipcustomer (vid);
-create index vipcustomer_vodate on vipcustomer (vodate);
-create unique index origin_gsupplier on origin (gsupplier);
-create unique index reficition_specifications on reficition (specifications);
-create unique index goodsc_gcategory on goodsc (gcategory);
-create unique index employeec_erole on employeec (erole);
-create unique index ticketc_tid on ticketc (tid);
-
+create unique index employee_epassword on employee (epassword);
+create unique index vipcustomer_vodate on vipcustomer (vodate);
 # 插入省份，城市以及县区的表格数据
 INSERT INTO province (provinceID, province)
 VALUES (110000, '北京市');
