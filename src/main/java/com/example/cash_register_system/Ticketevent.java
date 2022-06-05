@@ -76,8 +76,10 @@ public class Ticketevent {
                 secondString = Cashierevent.tvid;
                 List<Allentity> list = ticketDao.getVsales(connection);
                 assert list != null;
-                tintergal.setText(list.get(0).getVintegral() + "");
-                binla.setText(list.get(0).getSintegral() + "");
+                if (!list.isEmpty()) {
+                    tintergal.setText(list.get(0).getVintegral() + "");
+                    binla.setText(list.get(0).getSintegral() + "");
+                }
             }
         }
     }
